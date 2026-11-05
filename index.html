@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevWrite - Modern Tech Blog</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Header / Navigation -->
+    <header class="navbar">
+        <div class="container nav-container">
+            <a href="#home" class="logo">
+                <i class="fa-solid fa-code"></i> Dev<span>Write</span>
+            </a>
+            
+            <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle navigation">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+
+            <nav class="nav-menu" id="navMenu">
+                <a href="#home" class="nav-link active" data-page="home">Home</a>
+                
+                <!-- Guest Links -->
+                <div id="guestNav" class="nav-group">
+                    <a href="#login" class="nav-link" data-page="login">Login</a>
+                    <a href="#register" class="btn btn-primary" data-page="register">Register</a>
+                </div>
+
+                <!-- User Links (Hidden by default) -->
+                <div id="userNav" class="nav-group hidden">
+                    <a href="#create" class="nav-link" data-page="create"><i class="fa-solid fa-plus"></i> Create Post</a>
+                    <a href="#dashboard" class="nav-link" data-page="dashboard"><i class="fa-solid fa-chart-line"></i> Dashboard</a>
+                    <div class="user-profile">
+                        <span id="navUsername">User</span>
+                        <button id="logoutBtn" class="btn btn-secondary btn-sm"><i class="fa-solid fa-right-from-bracket"></i></button>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content Dynamic Views Container -->
+    <main class="main-content container">
+
+        <!-- VIEW 1: HOME -->
+        <section id="page-home" class="view-page active">
+            <div class="hero">
+                <h1>Welcome to DevWrite</h1>
+                <p>Insights, tutorials, and stories from the developer community.</p>
+                <div class="search-bar">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" id="searchInput" placeholder="Search posts by title, tag, or content...">
+                </div>
+            </div>
+
+            <div class="filter-container">
+                <span class="filter-label">Categories:</span>
+                <div class="category-chips" id="categoryChips">
+                    <button class="chip active" data-cat="All">All</button>
+                    <button class="chip" data-cat="Frontend">Frontend</button>
+                    <button class="chip" data-cat="Backend">Backend</button>
+                    <button class="chip" data-cat="Design">Design</button>
+                    <button class="chip" data-cat="DevOps">DevOps</button>
+                </div>
+            </div>
+
+            <div class="posts-grid" id="postsContainer">
+                <!-- Posts rendered dynamically via JavaScript -->
+            </div>
+        </section>
+
+        <!-- VIEW 2: LOGIN -->
+        <section id="page-login" class="view-page">
+            <div class="auth-card">
+                <h2>Welcome Back</h2>
+                <p class="auth-subtitle">Login to access your dashboard and create posts.</p>
+                
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="loginEmail">Email Address</label>
+                        <input type="email" id="loginEmail" placeholder="e.g. dev@example.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="loginPassword">Password</label>
+                        <input type="password" id="loginPassword" placeholder="••••••••" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">Log In</button>
+                </form>
+                <p class="auth-footer">Don't have an account? <a href="#register">Register here</a></p>
+            </div>
+        </section>
+
+        <!-- VIEW 3: REGISTER -->
+        <section id="page-register" class="view-page">
+            <div class="auth-card">
+                <h2>Create an Account</h2>
+                <p class="auth-subtitle">Join our developer publication platform today.</p>
+                
+                <form id="registerForm">
+                    <div class="form-group">
+                        <label for="regName">Full Name</label>
+                        <input type="text" id="regName" placeholder="e.g. Alex Turner" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="regEmail">Email Address</label>
+                        <input type="email" id="regEmail" placeholder="e.g. alex@example.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="regPassword">Password</label>
+                        <input type="password" id="regPassword" placeholder="At least 6 characters" minlength="6" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">Register</button>
+                </form>
+                <p class="auth-footer">Already have an account? <a href="#login">Log in here</a></p>
+            </div>
+        </section>
+
+        <!-- VIEW 4: DASHBOARD -->
+        <section id="page-dashboard" class="view-page">
+            <div class="dashboard-header">
+                <div>
+                    <h2>Author Dashboard</h2>
+                    <p>Manage your published posts and stats.</p>
+                </div>
+                <a href="#create" class="btn btn-primary"><i class="fa-solid fa-plus"></i> New Article</a>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <i class="fa-solid fa-newspaper stat-icon"></i>
+                    <div>
+                        <h3 id="statTotalPosts">0</h3>
+                        <p>Total Articles</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <i class="fa-solid fa-eye stat-icon"></i>
+                    <div>
+                        <h3 id="statTotalViews">0</h3>
+                        <p>Total Views</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <i class="fa-solid fa-heart stat-icon"></i>
+                    <div>
+                        <h3 id="statTotalLikes">0</h3>
+                        <p>Total Likes</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="table-container">
+                <table class="dashboard-table">
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Category</th>
+                            <th>Date</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="dashboardTableBody">
+                        <!-- Table rows generated dynamically -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- VIEW 5: CREATE / EDIT BLOG -->
+        <section id="page-create" class="view-page">
+            <div class="form-container">
+                <h2 id="editorTitle">Write a New Story</h2>
+                
+                <form id="postForm">
+                    <input type="hidden" id="postId">
+                    
+                    <div class="form-group">
+                        <label for="postTitle">Article Title</label>
+                        <input type="text" id="postTitle" placeholder="e.g. Masterizing Modern CSS Grid Layouts" required>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="postCategory">Category</label>
+                            <select id="postCategory" required>
+                                <option value="Frontend">Frontend</option>
+                                <option value="Backend">Backend</option>
+                                <option value="Design">Design</option>
+                                <option value="DevOps">DevOps</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="postImage">Cover Image URL</label>
+                            <input type="url" id="postImage" placeholder="https://images.unsplash.com/photo-...">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="postExcerpt">Short Excerpt</label>
+                        <input type="text" id="postExcerpt" placeholder="Brief 1-2 sentence summary for display cards" required>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="editor-header">
+                            <label for="postContent">Article Body Content</label>
+                            <div class="editor-tabs">
+                                <button type="button" class="tab-btn active" id="btnWrite">Write</button>
+                                <button type="button" class="tab-btn" id="btnPreview">Preview</button>
+                            </div>
+                        </div>
+                        <textarea id="postContent" rows="12" placeholder="Write your post content here... HTML tags like <h3>, <p>, <code> are supported." required></textarea>
+                        <div id="contentPreview" class="content-preview hidden"></div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" id="cancelPostBtn" class="btn btn-secondary">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Publish Article</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Post Detail Reader Modal -->
+    <div class="modal" id="postModal">
+        <div class="modal-content">
+            <button class="modal-close" id="closeModal">&times;</button>
+            <article id="modalArticle">
+                <!-- Single article content rendered dynamically -->
+            </article>
+        </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="toast" class="toast hidden">Action completed successfully</div>
+
+    <script src="app.js"></script>
+</body>
+</html>
